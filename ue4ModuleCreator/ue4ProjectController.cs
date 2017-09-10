@@ -50,6 +50,12 @@ namespace ue4ModuleCreator
 
         private List<string> GetValidatedPluginList()
         {
+            //If there are no plugins, plugins folder does not exist
+            if (projectPluginsFolder.Equals(""))
+            {
+                return new List<string>();
+            }
+
             string[] pluginFolderList = Directory.GetDirectories(projectPluginsFolder);
             List<string> validatedPluginList = new List<string>();
 

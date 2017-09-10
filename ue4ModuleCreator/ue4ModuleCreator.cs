@@ -31,22 +31,14 @@ namespace ue4ModuleCreator
 
         public void CreateModule()
         {
-            try
-            {
-                CreateModuleFolderStructure();
-                CreateBuildCs();
-                CreateModuleHeader();
-                CreateMdouleSource();
-                RegisterToParent();
-                //ToDo: Create Success Popup
-                //ToDo: Close
-            }
-            catch (Exception e)
-            {
-                //ToDo: Something went wrong
-                Console.WriteLine(e);
-                throw;
-            }
+            CreateModuleFolderStructure();
+            CreateBuildCs();
+            CreateModuleHeader();
+            CreateMdouleSource();
+            RegisterToParent();
+            //ToDo: Generate VS Project Files
+            //ToDo: Create Success Popup
+            //ToDo: Close
         }
 
         private void CreateModuleFolderStructure()
@@ -125,7 +117,21 @@ namespace ue4ModuleCreator
 
         private void RegisterToMainModule()
         {
+            string mainModulePath = Path.Combine(parentSourceFolderPath, parentName, parentName + ".Build.cs");
+            string mainModuleBuildCsContent = File.ReadAllText(mainModulePath);
+
+            string functionToAddModuleName = "PublicDependencyModuleNames";
+
+            int publicDependencyStartIndex = mainModuleBuildCsContent.IndexOf(functionToAddModuleName, StringComparison.Ordinal);
+            int moduleNameInsertIndex = mainModuleBuildCsContent.IndexOf("});", publicDependencyStartIndex, StringComparison.Ordinal);
+
+            //Might destroy the formating of Build CS
+            //Don't have a better idea :(
+            string moduleNameString = ",\"" + moduleName + "\"";
+
+            mainModuleBuildCsContent = mainModuleBuildCsContent.Insert(moduleNameInsertIndex, moduleNameString);
             
+            File.WriteAllText(mainModulePath, mainModuleBuildCsContent);
         }
     }
 }
