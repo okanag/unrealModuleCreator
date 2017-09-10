@@ -7,7 +7,7 @@ namespace ue4ModuleCreator
 {
     public partial class MainForm : Form
     {
-        private Ue4ProjectController ProjectController;
+        private readonly Ue4ProjectController projectController;
 
         public MainForm()
         {
@@ -15,7 +15,7 @@ namespace ue4ModuleCreator
 
             projectPathTextBox.Validating += new CancelEventHandler(ProjectPathTextBox_Validating);
 
-            ProjectController = new Ue4ProjectController();
+            projectController = new Ue4ProjectController();
         }
 
         private void BrowseProjectButton_Click(object sender, EventArgs e)
@@ -35,8 +35,8 @@ namespace ue4ModuleCreator
 
         protected void ProjectPathTextBox_Validating(object sender, CancelEventArgs e)
         {
-            ProjectController.InitializeWithProjectPath(projectPathTextBox.Text);
-            if (ProjectController.IsProjectPathValid())
+            projectController.InitializeWithProjectPath(projectPathTextBox.Text);
+            if (projectController.IsProjectPathValid())
             {
                 projectPathErrorProvider.SetError(projectPathTextBox, "");
                 RefreshPluginListButton_Click(null, null);
@@ -50,9 +50,9 @@ namespace ue4ModuleCreator
         private void RefreshPluginListButton_Click(object sender, EventArgs e)
         {
             ModuleLocationComboBox.Items.Clear();
-            if (ProjectController != null && ProjectController.IsProjectPathValid())
+            if (projectController != null && projectController.IsProjectPathValid())
             {
-                string[] possibleModuleLocationList = ProjectController.GetPossibleModuleLocationList().ToArray();
+                string[] possibleModuleLocationList = projectController.GetPossibleModuleLocationList().ToArray();
                 // ReSharper disable once CoVariantArrayConversion
                 ModuleLocationComboBox.Items.AddRange(possibleModuleLocationList);
             }
@@ -69,11 +69,11 @@ namespace ue4ModuleCreator
                 projectPathErrorProvider.SetError(moduleNameBox, "");
             }
 
-            if (ProjectController != null && ProjectController.IsProjectPathValid())
+            if (projectController != null && projectController.IsProjectPathValid())
             {
                 string selectedItem = (string) ModuleLocationComboBox.SelectedItem;
-                string moduleParentPath = ProjectController.GetPathForModuleLocation(selectedItem);
-                Ue4ModuleCreator moduleCreator = new Ue4ModuleCreator(moduleParentPath, moduleNameBox.Text, !ProjectController.IsMainGameModuleSelected(selectedItem));
+                string moduleParentPath = projectController.GetPathForModuleLocation(selectedItem);
+                Ue4ModuleCreator moduleCreator = new Ue4ModuleCreator(moduleParentPath, moduleNameBox.Text, !projectController.IsMainGameModuleSelected(selectedItem));
                 moduleCreator.CreateModule();
             }
         }

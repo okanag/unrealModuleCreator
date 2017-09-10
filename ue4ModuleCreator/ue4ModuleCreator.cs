@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Windows.Forms;
 using Newtonsoft.Json.Linq;
 using ue4ModuleCreator.Properties;
 
@@ -7,10 +8,10 @@ namespace ue4ModuleCreator
 {
     class Ue4ModuleCreator
     {
-        private string parentPath;
-        private string parentName;
-        private string moduleName;
-        private bool isPluginModule;
+        private readonly string parentPath;
+        private readonly string parentName;
+        private readonly string moduleName;
+        private readonly bool isPluginModule;
         private string parentSourceFolderPath;
         private string moduleFolderPath;
 
@@ -38,26 +39,19 @@ namespace ue4ModuleCreator
             RegisterToParent();
             //ToDo: Generate VS Project Files
             //ToDo: Create Success Popup
-            //ToDo: Close
+            Application.Exit();
         }
 
         private void CreateModuleFolderStructure()
         {
             moduleFolderPath = Path.Combine(parentSourceFolderPath, moduleName);
-            if (!Directory.Exists(moduleFolderPath))
-            {
-                Directory.CreateDirectory(moduleFolderPath);
-            }
+            Directory.CreateDirectory(moduleFolderPath);
+
             string modulePrivateFolderPath = Path.Combine(moduleFolderPath, "Private");
-            if (!Directory.Exists(modulePrivateFolderPath))
-            {
-                Directory.CreateDirectory(modulePrivateFolderPath);
-            }
+            Directory.CreateDirectory(modulePrivateFolderPath);
+
             string modulePublicFolderPath = Path.Combine(moduleFolderPath, "Public");
-            if (!Directory.Exists(modulePublicFolderPath))
-            {
-                Directory.CreateDirectory(modulePublicFolderPath);
-            }
+            Directory.CreateDirectory(modulePublicFolderPath);
         }
         
         private void CreateBuildCs()
@@ -124,9 +118,8 @@ namespace ue4ModuleCreator
             string mainModulePath = Path.Combine(parentSourceFolderPath, parentName, parentName + ".Build.cs");
             string mainModuleBuildCsContent = File.ReadAllText(mainModulePath);
 
-            string functionToAddModuleName = "PublicDependencyModuleNames";
-
-            int publicDependencyStartIndex = mainModuleBuildCsContent.IndexOf(functionToAddModuleName, StringComparison.Ordinal);
+            string publicDependencyFunctionName = "PublicDependencyModuleNames";
+            int publicDependencyStartIndex = mainModuleBuildCsContent.IndexOf(publicDependencyFunctionName, StringComparison.Ordinal);
             int moduleNameInsertIndex = mainModuleBuildCsContent.IndexOf("});", publicDependencyStartIndex, StringComparison.Ordinal);
 
             //Might destroy the formating of Build CS
