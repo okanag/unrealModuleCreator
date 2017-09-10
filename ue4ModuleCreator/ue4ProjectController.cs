@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace ue4ModuleCreator
@@ -9,7 +10,6 @@ namespace ue4ModuleCreator
         private string ue4ProjectName;
 
         private string projectPluginsFolder;
-        private string projectSourceFolder;
 
         public bool InitializeWithProjectPath(string text)
         {
@@ -26,7 +26,6 @@ namespace ue4ModuleCreator
                 {
                     ue4ProjectPath = text;
                     ue4ProjectName = Path.GetFileNameWithoutExtension(ue4ProjectPath);
-                    FindSourceFolder();
                     FindPluginsFolder();
                     return true;
                 }
@@ -34,12 +33,6 @@ namespace ue4ModuleCreator
 
             ue4ProjectPath = "";
             return false;
-        }
-
-        private void FindSourceFolder()
-        {
-            string sourceFolder = Path.Combine(ue4ProjectPath, "Source");
-            projectSourceFolder = Directory.Exists(sourceFolder) ? sourceFolder : "";
         }
 
         private void FindPluginsFolder()
@@ -76,6 +69,21 @@ namespace ue4ModuleCreator
         public bool IsProjectPathValid()
         {
             return !ue4ProjectPath.Equals("");
+        }
+
+        public string GetPathForModuleLocation(string selectedItem)
+        {
+            if (IsMainGameModuleSelected(selectedItem))
+            {
+                return ue4ProjectPath;
+            }
+
+            return Path.Combine(projectPluginsFolder, selectedItem);
+        }
+
+        public bool IsMainGameModuleSelected(string selectedItem)
+        {
+            return selectedItem.Equals(ue4ProjectName);
         }
     }
 }

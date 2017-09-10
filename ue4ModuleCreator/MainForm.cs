@@ -53,13 +53,29 @@ namespace ue4ModuleCreator
             if (ProjectController != null && ProjectController.IsProjectPathValid())
             {
                 string[] possibleModuleLocationList = ProjectController.GetPossibleModuleLocationList().ToArray();
+                // ReSharper disable once CoVariantArrayConversion
                 ModuleLocationComboBox.Items.AddRange(possibleModuleLocationList);
             }
         }
 
         private void CreateModuleButton_Click(object sender, EventArgs e)
         {
+            if (moduleNameBox.Text.Equals(""))
+            {
+                projectPathErrorProvider.SetError(moduleNameBox, "Module name can't be empty!");
+            }
+            else
+            {
+                projectPathErrorProvider.SetError(moduleNameBox, "");
+            }
 
+            if (ProjectController != null && ProjectController.IsProjectPathValid())
+            {
+                string selectedItem = (string) ModuleLocationComboBox.SelectedItem;
+                string moduleParentPath = ProjectController.GetPathForModuleLocation(selectedItem);
+                Ue4ModuleCreator moduleCreator = new Ue4ModuleCreator(moduleParentPath, moduleNameBox.Text, ProjectController.IsMainGameModuleSelected(selectedItem));
+                moduleCreator.CreateModule();
+            }
         }
     }
 }

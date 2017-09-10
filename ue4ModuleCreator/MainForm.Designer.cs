@@ -36,7 +36,7 @@
             this.RefreshPluginListButton = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.ModuleLocationComboBox = new System.Windows.Forms.ComboBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.moduleNameBox = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.CreateModuleButton = new System.Windows.Forms.Button();
             this.projectPathErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
@@ -91,7 +91,7 @@
             this.tableLayoutPanel1.Controls.Add(this.projectPathTextBox, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.ModuleLocationComboBox, 1, 1);
-            this.tableLayoutPanel1.Controls.Add(this.textBox1, 1, 2);
+            this.tableLayoutPanel1.Controls.Add(this.moduleNameBox, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.label3, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.CreateModuleButton, 3, 2);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(12, 12);
@@ -135,13 +135,13 @@
             this.ModuleLocationComboBox.Size = new System.Drawing.Size(293, 21);
             this.ModuleLocationComboBox.TabIndex = 2;
             // 
-            // textBox1
+            // moduleNameBox
             // 
-            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox1.Location = new System.Drawing.Point(123, 90);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(293, 20);
-            this.textBox1.TabIndex = 4;
+            this.moduleNameBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.moduleNameBox.Location = new System.Drawing.Point(123, 90);
+            this.moduleNameBox.Name = "moduleNameBox";
+            this.moduleNameBox.Size = new System.Drawing.Size(293, 20);
+            this.moduleNameBox.TabIndex = 4;
             // 
             // label3
             // 
@@ -190,7 +190,7 @@
         private System.Windows.Forms.Button BrowseProjectButton;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox moduleNameBox;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox ModuleLocationComboBox;
         private System.Windows.Forms.Label label3;
