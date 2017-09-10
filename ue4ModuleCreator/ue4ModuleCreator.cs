@@ -112,6 +112,10 @@ namespace ue4ModuleCreator
             modulesArray.Add(JObject.Parse(moduleJsonObject));
             uPluginJson.Modules = modulesArray;
 
+            // ReSharper disable once UseObjectOrCollectionInitializer
+            FileInfo fileInfo = new FileInfo(uPluginPath);
+            fileInfo.IsReadOnly = false;
+
             File.WriteAllText(uPluginPath, uPluginJson.ToString());
         }
 
@@ -130,7 +134,11 @@ namespace ue4ModuleCreator
             string moduleNameString = ",\"" + moduleName + "\"";
 
             mainModuleBuildCsContent = mainModuleBuildCsContent.Insert(moduleNameInsertIndex, moduleNameString);
-            
+
+            // ReSharper disable once UseObjectOrCollectionInitializer
+            FileInfo fileInfo = new FileInfo(mainModulePath);
+            fileInfo.IsReadOnly = false;
+
             File.WriteAllText(mainModulePath, mainModuleBuildCsContent);
         }
     }
