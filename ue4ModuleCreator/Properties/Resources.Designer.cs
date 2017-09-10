@@ -151,5 +151,14 @@ namespace ue4ModuleCreator.Properties {
                 return ResourceManager.GetString("moduleCreator_moduleSource", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {&quot;Name&quot;: &quot;%MODULENAME%&quot;,&quot;Type&quot;: &quot;Runtime&quot;,&quot;LoadingPhase&quot;: &quot;Default&quot;}.
+        /// </summary>
+        internal static string moduleCreator_pluginJson {
+            get {
+                return ResourceManager.GetString("moduleCreator_pluginJson", resourceCulture);
+            }
+        }
     }
 }

@@ -213,4 +213,7 @@ void F%MODULENAME%Module::ShutdownModule()
 
 IMPLEMENT_MODULE(F%MODULENAME%Module, %MODULENAME%);</value>
   </data>
+  <data name="moduleCreator_pluginJson" xml:space="preserve">
+    <value>{"Name": "%MODULENAME%","Type": "Runtime","LoadingPhase": "Default"}</value>
+  </data>
 </root>

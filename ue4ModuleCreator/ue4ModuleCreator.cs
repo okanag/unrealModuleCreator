@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using Newtonsoft.Json.Linq;
 using ue4ModuleCreator.Properties;
 
 namespace ue4ModuleCreator
@@ -7,6 +8,7 @@ namespace ue4ModuleCreator
     class Ue4ModuleCreator
     {
         private string parentPath;
+        private string parentName;
         private string moduleName;
         private bool isPluginModule;
         private string parentSourceFolderPath;
@@ -15,6 +17,7 @@ namespace ue4ModuleCreator
         public Ue4ModuleCreator(string parentPath, string moduleName, bool isPluginModule)
         {
             this.parentPath = parentPath;
+            parentName = Path.GetFileName(parentPath);
             this.moduleName = moduleName;
             this.isPluginModule = isPluginModule;
             FindSourceFolder();
@@ -108,7 +111,16 @@ namespace ue4ModuleCreator
 
         private void RegisterToPlugin()
         {
-            
+            string uPluginPath = Path.Combine(parentPath, parentName + ".uplugin");
+            string uPluginContent = File.ReadAllText(uPluginPath);
+            dynamic uPluginJson = JObject.Parse(uPluginContent);
+
+            JArray modulesArray = uPluginJson.Modules;
+            string moduleJsonObject = ReplacePlaceholdersWithModuleData(Resources.moduleCreator_pluginJson);
+            modulesArray.Add(JObject.Parse(moduleJsonObject));
+            uPluginJson.Modules = modulesArray;
+
+            File.WriteAllText(uPluginPath, uPluginJson.ToString());
         }
 
         private void RegisterToMainModule()

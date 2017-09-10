@@ -73,7 +73,7 @@ namespace ue4ModuleCreator
             {
                 string selectedItem = (string) ModuleLocationComboBox.SelectedItem;
                 string moduleParentPath = ProjectController.GetPathForModuleLocation(selectedItem);
-                Ue4ModuleCreator moduleCreator = new Ue4ModuleCreator(moduleParentPath, moduleNameBox.Text, ProjectController.IsMainGameModuleSelected(selectedItem));
+                Ue4ModuleCreator moduleCreator = new Ue4ModuleCreator(moduleParentPath, moduleNameBox.Text, !ProjectController.IsMainGameModuleSelected(selectedItem));
                 moduleCreator.CreateModule();
             }
         }
