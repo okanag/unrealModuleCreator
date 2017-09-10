@@ -35,7 +35,7 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.RefreshPluginListButton = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.ModuleLocationComboBox = new System.Windows.Forms.ComboBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.CreateModuleButton = new System.Windows.Forms.Button();
@@ -90,7 +90,7 @@
             this.tableLayoutPanel1.Controls.Add(this.BrowseProjectButton, 3, 0);
             this.tableLayoutPanel1.Controls.Add(this.projectPathTextBox, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.comboBox1, 1, 1);
+            this.tableLayoutPanel1.Controls.Add(this.ModuleLocationComboBox, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.textBox1, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.label3, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.CreateModuleButton, 3, 2);
@@ -124,16 +124,16 @@
             this.label2.Padding = new System.Windows.Forms.Padding(2);
             this.label2.Size = new System.Drawing.Size(114, 17);
             this.label2.TabIndex = 3;
-            this.label2.Text = "Plugin";
+            this.label2.Text = "ModuleLocation";
             // 
-            // comboBox1
+            // ModuleLocationComboBox
             // 
-            this.comboBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(123, 49);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(293, 21);
-            this.comboBox1.TabIndex = 2;
+            this.ModuleLocationComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.ModuleLocationComboBox.FormattingEnabled = true;
+            this.ModuleLocationComboBox.Location = new System.Drawing.Point(123, 49);
+            this.ModuleLocationComboBox.Name = "ModuleLocationComboBox";
+            this.ModuleLocationComboBox.Size = new System.Drawing.Size(293, 21);
+            this.ModuleLocationComboBox.TabIndex = 2;
             // 
             // textBox1
             // 
@@ -192,7 +192,7 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox ModuleLocationComboBox;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button CreateModuleButton;
         private System.Windows.Forms.Button RefreshPluginListButton;

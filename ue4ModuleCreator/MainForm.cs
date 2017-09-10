@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using ue4ModuleCreator.Properties;
 
@@ -34,27 +28,33 @@ namespace ue4ModuleCreator
             if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
             {
                 projectPathTextBox.Text = folderBrowserDialog.SelectedPath;
-
-                ProjectController.InitializeWithProjectPath(projectPathTextBox.Text);
+                
                 ProjectPathTextBox_Validating(null, null);
             }
         }
 
         protected void ProjectPathTextBox_Validating(object sender, CancelEventArgs e)
         {
-            if (!ProjectController.IsProjectPathValid())
+            ProjectController.InitializeWithProjectPath(projectPathTextBox.Text);
+            if (ProjectController.IsProjectPathValid())
             {
-                projectPathErrorProvider.SetError(projectPathTextBox, "Can't find .uproject file in given path!");
+                projectPathErrorProvider.SetError(projectPathTextBox, "");
+                RefreshPluginListButton_Click(null, null);
             }
             else
             {
-                projectPathErrorProvider.SetError(projectPathTextBox, "");
+                projectPathErrorProvider.SetError(projectPathTextBox, "Can't find .uproject file in given path!");
             }
         }
 
         private void RefreshPluginListButton_Click(object sender, EventArgs e)
         {
-
+            ModuleLocationComboBox.Items.Clear();
+            if (ProjectController != null && ProjectController.IsProjectPathValid())
+            {
+                string[] possibleModuleLocationList = ProjectController.GetPossibleModuleLocationList().ToArray();
+                ModuleLocationComboBox.Items.AddRange(possibleModuleLocationList);
+            }
         }
 
         private void CreateModuleButton_Click(object sender, EventArgs e)
