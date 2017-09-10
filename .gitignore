@@ -69,3 +69,7 @@ artifacts/
 _ReSharper*/
 *.[Rr]e[Ss]harper
 *.DotSettings.user
+
+# NuGet
+/packages/
+!packages/repositories.config
