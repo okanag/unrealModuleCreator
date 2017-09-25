@@ -90,5 +90,10 @@ namespace ue4ModuleCreator
         {
             return selectedItem.Equals(ue4ProjectName);
         }
+
+        public string GetUprojectPath()
+        {
+            return Path.Combine(ue4ProjectPath, ue4ProjectName + ".uproject");
+        }
     }
 }

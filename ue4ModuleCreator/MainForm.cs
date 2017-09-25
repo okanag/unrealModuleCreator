@@ -8,14 +8,17 @@ namespace ue4ModuleCreator
     public partial class MainForm : Form
     {
         private readonly Ue4ProjectController projectController;
+        private readonly Ue4EngineUtilities engineUtilities;
 
         public MainForm()
         {
             InitializeComponent();
 
-            projectPathTextBox.Validating += new CancelEventHandler(ProjectPathTextBox_Validating);
+            projectPathTextBox.Validating += ProjectPathTextBox_Validating;
+            EnginePathTextBox.Validating += EnginePathTextBox_Validating;
 
             projectController = new Ue4ProjectController();
+            engineUtilities = new Ue4EngineUtilities();
         }
 
         private void BrowseProjectButton_Click(object sender, EventArgs e)
@@ -47,6 +50,28 @@ namespace ue4ModuleCreator
             }
         }
 
+        private void EngineBrowseButton_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog
+            {
+                Description = Resources.MainForm_enginePathFolderBrowserDescription
+            };
+
+            if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
+            {
+                EnginePathTextBox.Text = folderBrowserDialog.SelectedPath;
+
+                EnginePathTextBox_Validating(null, null);
+            }
+        }
+
+        protected void EnginePathTextBox_Validating(object sender, CancelEventArgs e)
+        {
+            engineUtilities.InitializeWithEnginePath(EnginePathTextBox.Text);
+            projectPathErrorProvider.SetError(EnginePathTextBox,
+                engineUtilities.IsEnginePathValid() ? "" : "Can't find engine files in given path!");
+        }
+
         private void RefreshPluginListButton_Click(object sender, EventArgs e)
         {
             ModuleLocationComboBox.Items.Clear();
@@ -60,20 +85,13 @@ namespace ue4ModuleCreator
 
         private void CreateModuleButton_Click(object sender, EventArgs e)
         {
-            if (moduleNameBox.Text.Equals(""))
-            {
-                projectPathErrorProvider.SetError(moduleNameBox, "Module name can't be empty!");
-            }
-            else
-            {
-                projectPathErrorProvider.SetError(moduleNameBox, "");
-            }
+            projectPathErrorProvider.SetError(moduleNameBox,
+                moduleNameBox.Text.Equals("") ? "Module name can't be empty!" : "");
 
             if (projectController != null && projectController.IsProjectPathValid())
             {
                 string selectedItem = (string) ModuleLocationComboBox.SelectedItem;
-                string moduleParentPath = projectController.GetPathForModuleLocation(selectedItem);
-                Ue4ModuleCreator moduleCreator = new Ue4ModuleCreator(moduleParentPath, moduleNameBox.Text, !projectController.IsMainGameModuleSelected(selectedItem));
+                Ue4ModuleCreator moduleCreator = new Ue4ModuleCreator(projectController, moduleNameBox.Text, selectedItem, engineUtilities);
                 moduleCreator.CreateModule();
             }
         }

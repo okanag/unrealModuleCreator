@@ -11,16 +11,18 @@ namespace ue4ModuleCreator
         private readonly string parentPath;
         private readonly string parentName;
         private readonly string moduleName;
-        private readonly bool isPluginModule;
+        private readonly Ue4ProjectController projectController;
+        private readonly Ue4EngineUtilities engineUtilities;
         private string parentSourceFolderPath;
         private string moduleFolderPath;
 
-        public Ue4ModuleCreator(string parentPath, string moduleName, bool isPluginModule)
+        public Ue4ModuleCreator(Ue4ProjectController projectController, string moduleName, string selectedParent, Ue4EngineUtilities engineUtilities)
         {
-            this.parentPath = parentPath;
-            parentName = Path.GetFileName(parentPath);
+            this.projectController = projectController;
+            parentPath = projectController.GetPathForModuleLocation(selectedParent);
+            parentName = selectedParent;
             this.moduleName = moduleName;
-            this.isPluginModule = isPluginModule;
+            this.engineUtilities = engineUtilities;
             FindSourceFolder();
         }
 
@@ -37,7 +39,7 @@ namespace ue4ModuleCreator
             CreateModuleHeader();
             CreateMdouleSource();
             RegisterToParent();
-            //ToDo: Generate VS Project Files
+            GenerateProjectFiles();
             //ToDo: Create Success Popup
             Application.Exit();
         }
@@ -85,13 +87,13 @@ namespace ue4ModuleCreator
 
         private void RegisterToParent()
         {
-            if (isPluginModule)
+            if (projectController.IsMainGameModuleSelected(parentName))
             {
-                RegisterToPlugin();
+                RegisterToMainModule();
             }
             else
             {
-                RegisterToMainModule();
+                RegisterToPlugin();
             }
         }
 
@@ -133,6 +135,11 @@ namespace ue4ModuleCreator
             fileInfo.IsReadOnly = false;
 
             File.WriteAllText(mainModulePath, mainModuleBuildCsContent);
+        }
+
+        private void GenerateProjectFiles()
+        {
+            engineUtilities.GenerateProjectFiles(projectController.GetUprojectPath());
         }
     }
 }
