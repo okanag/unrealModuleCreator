@@ -3,7 +3,7 @@ using System.IO;
 
 namespace ue4ModuleCreator
 {
-    class Ue4EngineUtilities
+    public class Ue4EngineUtilities
     {
         private string enginePath;
 

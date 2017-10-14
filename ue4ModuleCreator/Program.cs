@@ -13,7 +13,7 @@ namespace ue4ModuleCreator
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainForm());
+            Application.Run(new Ue4EngineUtilitiesForm());
         }
     }
 }

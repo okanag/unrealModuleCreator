@@ -40,9 +40,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.CreateModuleButton = new System.Windows.Forms.Button();
             this.projectPathErrorProvider = new System.Windows.Forms.ErrorProvider(this.components);
-            this.label4 = new System.Windows.Forms.Label();
-            this.EnginePathTextBox = new System.Windows.Forms.TextBox();
-            this.EngineBrowseButton = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.projectPathErrorProvider)).BeginInit();
             this.SuspendLayout();
@@ -97,9 +94,6 @@
             this.tableLayoutPanel1.Controls.Add(this.moduleNameBox, 1, 3);
             this.tableLayoutPanel1.Controls.Add(this.label3, 0, 3);
             this.tableLayoutPanel1.Controls.Add(this.CreateModuleButton, 3, 3);
-            this.tableLayoutPanel1.Controls.Add(this.label4, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.EnginePathTextBox, 1, 1);
-            this.tableLayoutPanel1.Controls.Add(this.EngineBrowseButton, 3, 1);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(12, 12);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 5;
@@ -176,35 +170,6 @@
             // 
             this.projectPathErrorProvider.ContainerControl = this;
             // 
-            // label4
-            // 
-            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(3, 53);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(114, 13);
-            this.label4.TabIndex = 8;
-            this.label4.Text = "Ue4 Engine Path";
-            // 
-            // EnginePathTextBox
-            // 
-            this.EnginePathTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.EnginePathTextBox.Location = new System.Drawing.Point(123, 50);
-            this.EnginePathTextBox.Name = "EnginePathTextBox";
-            this.EnginePathTextBox.Size = new System.Drawing.Size(293, 20);
-            this.EnginePathTextBox.TabIndex = 9;
-            // 
-            // EngineBrowseButton
-            // 
-            this.EngineBrowseButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.EngineBrowseButton.Location = new System.Drawing.Point(462, 48);
-            this.EngineBrowseButton.Name = "EngineBrowseButton";
-            this.EngineBrowseButton.Size = new System.Drawing.Size(74, 23);
-            this.EngineBrowseButton.TabIndex = 10;
-            this.EngineBrowseButton.Text = "Browse";
-            this.EngineBrowseButton.UseVisualStyleBackColor = true;
-            this.EngineBrowseButton.Click += new System.EventHandler(this.EngineBrowseButton_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -233,9 +198,6 @@
         private System.Windows.Forms.Button CreateModuleButton;
         private System.Windows.Forms.Button RefreshPluginListButton;
         private System.Windows.Forms.ErrorProvider projectPathErrorProvider;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox EnginePathTextBox;
-        private System.Windows.Forms.Button EngineBrowseButton;
     }
 }
 
